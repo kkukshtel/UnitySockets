@@ -13,6 +13,7 @@ public class Example : MonoBehaviour
     uint listenSocket;
     void Awake()
     {
+        Valve.Sockets.Library.Initialize();
         server = new NetworkingSockets();
         address = new Address();
         address.SetAddress("71.183.225.200", (ushort)10);
