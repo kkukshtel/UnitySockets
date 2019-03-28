@@ -3,7 +3,7 @@ using Valve.Sockets;
 using System.Collections;
 using System.Threading;
 
-public class Example : MonoBehaviour
+public class ServerExample : MonoBehaviour
 {
     NetworkingSockets server;
     Address address;
@@ -11,12 +11,13 @@ public class Example : MonoBehaviour
     NetworkingMessage[] netMessages = new NetworkingMessage[maxMessages];
     StatusCallback status;
     uint listenSocket;
+    ushort serverPort = 27200;
     void Awake()
     {
         Valve.Sockets.Library.Initialize();
         server = new NetworkingSockets();
         address = new Address();
-        address.SetAddress("71.183.225.200", (ushort)10);
+        address.SetAddress("::0", serverPort); //ipv6 all
         listenSocket = server.CreateListenSocket(address);
         InitCallbacks();
         StartCoroutine(HandleServer());
