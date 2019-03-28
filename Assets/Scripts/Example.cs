@@ -19,6 +19,7 @@ public class Example : MonoBehaviour
         address.SetAddress("71.183.225.200", (ushort)10);
         listenSocket = server.CreateListenSocket(address);
         InitCallbacks();
+        StartCoroutine(HandleServer());
     }
 
     void InitCallbacks()
@@ -44,25 +45,29 @@ public class Example : MonoBehaviour
         };
     }
 
-    void Update()
+    IEnumerator HandleServer()
     {
-        server.DispatchCallback(status);
-
-        int netMessagesCount = server.ReceiveMessagesOnListenSocket(listenSocket, netMessages, maxMessages);
-
-        if (netMessagesCount > 0) 
+        while(true)
         {
-            for (int i = 0; i < netMessagesCount; i++) 
+            server.DispatchCallback(status);
+
+            int netMessagesCount = server.ReceiveMessagesOnListenSocket(listenSocket, netMessages, maxMessages);
+
+            if (netMessagesCount > 0) 
             {
-                // ref NetworkingMessage netMessage = ref netMessages[i];
-                NetworkingMessage netMessage = netMessages[i];
+                for (int i = 0; i < netMessagesCount; i++) 
+                {
+                    // ref NetworkingMessage netMessage = ref netMessages[i];
+                    NetworkingMessage netMessage = netMessages[i];
 
-                Debug.Log("Message received from - ID: " + netMessage.connection + ", Channel ID: " + netMessage.channel + ", Data length: " + netMessage.length);
+                    Debug.Log("Message received from - ID: " + netMessage.connection + ", Channel ID: " + netMessage.channel + ", Data length: " + netMessage.length);
 
-                netMessage.Destroy();
+                    netMessage.Destroy();
+                }
             }
-        }
 
-        // Thread.Sleep(15);
+            Thread.Sleep(15);
+            yield return null;
+        }
     }
 }

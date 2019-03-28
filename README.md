@@ -1,6 +1,6 @@
 # Unity Sockets
 
-This library is an attempt to provide an easy, multiplatform networking library for Unity that leverages both [Valve's GameNetworkingSockets library](https://github.com/ValveSoftware/GameNetworkingSockets) as well as [nxrightthere's C# wrapper](https://github.com/ValveSoftware/GameNetworkingSockets) for that library.
+This library is an attempt to provide an easy, multiplatform networking library for Unity that leverages both [Valve's GameNetworkingSockets library](https://github.com/ValveSoftware/GameNetworkingSockets) as well as [nxrightthere's C# wrapper](https://github.com/nxrighthere/ValveSockets-CSharp) for that library.
 
 Note: This currently doesn't work.
 
